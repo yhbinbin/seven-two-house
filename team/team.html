@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #main{
+            position:relative;
+            transform-style:preserve-3d;
+            perspective:1000px;
+        }
+        .bg-img{
+            width:1160px;
+        }
+        #kabao{
+            position:absolute;
+            top:200px;
+            left:135px;
+            width:150px;
+            height:206px;
+            border-radius: 15px;
+            transition:transform 1s ease-out,box-shadow .3s linear;
+            z-index:1;
+        }
+        #kabao:hover{
+          transform:scale(1.05);
+            /*box-shadow: 0 0 40px 5px #5C3CFF,0 0 40px 5px #5C3CFF inset;*/
+        }
+        #kabao>img{
+            width:150px;
+            height:206px;
+        }
+        #kabao>div{
+            position:absolute;
+            background-size:150px 206px;
+            width:100%;
+            transition:all 2s linear;
+            z-index:-1;
+        }
+        #box{
+            position:absolute;
+            top:225px;
+            left:600px;
+            width:150px;
+            height:210px;
+            z-index:1;
+        }
+        #bgImg{
+            transition:filter 1s linear;
+        }
+        #kabao-list{
+            position:absolute;
+            top:0;
+            left:0;
+            width:1160px;
+            height:100%;
+        }
+        #kabao-list>div{
+            position:relative;
+            float:left;
+            width:100px;
+            height:146px;
+            border-radius: 5px;
+            transform-style:preserve-3d;
+            opacity: 0;
+            transition:all 1s ease-out;
+        }
+        #kabao-list>div:first-child{
+            top:250px;
+            left:892px;
+            transform:rotateY(180deg) translateZ(2000px);
+        }
+        #kabao-list>div:nth-child(2){
+            top:250px;
+            left:770px;
+            transform:rotateY(180deg) translateZ(2000px);
+        }
+        #kabao-list>div:nth-child(3){
+            top:250px;
+            left:649px;
+            transform:rotateY(180deg) translateZ(2000px);
+        }
+        #kabao-list>div:nth-child(4){
+            top:250px;
+            left:527px;
+            transform:rotateY(180deg) translateZ(2000px);
+        }
+        #kabao-list>div:nth-child(5){
+            top:250px;
+            left:405px;
+            transform:rotateY(180deg) translateZ(2000px);
+        }
+        #kabao-list div:hover{
+            box-shadow: 0 0 20px 2px #5C3CFF,0 0 2px 2px #5C3CFF inset;
+            cursor:pointer;
+        }
+        .blur{
+            box-shadow: 0 0 20px 2px #5C3CFF,0 0 2px 2px #5C3CFF inset;
+            cursor:pointer;
+        }
+        #kabao-list>div:first-child:hover{
+            box-shadow: 0 0 20px 2px #FFDD19,0 0 2px 2px #FFDD19 inset;
+            cursor:pointer;
+        }
+        .yellow{
+            box-shadow: 0 0 20px 2px #FFDD19,0 0 2px 2px #FFDD19 inset;
+            cursor:pointer;
+        }
+        #kabao-list>div>img{
+            width:120px;
+            top:-15px;
+            left:-13px;
+        }
+        #kabao-list>div>img:first-child{
+            position:absolute;
+            transform:translateZ(-1px);
+        }
+        #kabao-list>div>img:last-child{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100px;
+            transform: rotateY(180deg) translateZ(1px);
+        }
+        #jianjie{
+            position:absolute;
+            top:50px;
+            left:210px;
+            width:500px;
+            height:400px;
+            background: rgba(255,243,241,0.7);
+            border-radius: 5px;
+            padding:20px;
+            font-size:18px;
+            color:#3B3535;
+            transition:all .3s linear;
+            opacity: 0;
+        }
+        #jianjie>p{
+            position:relative;
+        }
+        #c1,#c2,#c3,#c4,#c5{
+            width:300px;
+            height:280px;
+            position: absolute;
+            top:130px;
+            left:100px;
+        }
+        #p1,#p2,#p3,#p4,#p5{
+            display:none;
+            transition:all .3s linear;
+        }
+		#login{
+			display:inline-block;
+			position:absolute;
+			right:10px;
+			bottom:10px;
+		}
+    </style>
+    <title></title>
+</head>
+<body>
+  <div id="main">
+      <img id="bgImg" src="img/bg-img.png" class="bg-img"/>
+      <div id="kabao"><img id="img1" src="img/kabao.gif" /></div>
+      <div id="box"></div>
+      <div id="kabao-list">
+          <div id="list-1">
+              <img src="img/hrk.gif"/>
+              <img src="img/kabao-bm.gif"/>
+          </div>
+          <div id="list-2">
+              <img src="img/njh.gif"/>
+              <img src="img/kabao-bm.gif"/>
+          </div>
+          <div id="list-3">
+              <img src="img/nlb.gif"/>
+              <img src="img/kabao-bm.gif"/>
+          </div>
+          <div id="list-4">
+              <img src="img/yhb.gif"/>
+              <img src="img/kabao-bm.gif"/>
+          </div>
+          <div id="list-5">
+              <img src="img/zhw.gif"/>
+              <img src="img/kabao-bm.gif"/>
+          </div>
+      </div>
+      <div id="jianjie">
+          <p id="p1">
+              本名胡瑞康，江湖人称丐帮帮主，风趣幽默，喜爱收集垃圾，家境富裕，但不贪图荣华富贵，毅然选择编程这条路，小组内负责后台搭建及整合，曾学过Java、C++等多门后台语言，拥有很强的学习及编程能力，是团队的技术核心，
+              一人之下万人之上！
+              <canvas id="c1"></canvas>
+          </p>
+          <p id="p2">
+              本名倪佳辉，丐帮副帮主，家境贫寒，平时以捡垃圾为生。在一次外出拾荒时巧遇胡帮主，两人相谈甚欢，被帮主收编，立为副帮主。团队中负责主页及团队介绍页面，学习能力较强，为帮主左右手。
+              <canvas id="c2"></canvas>
+          </p>
+          <p id="p3">
+              本名倪龙波，帮派内负责服务器数据及后台搭建，学习能力超强，帮内老祖级人物，连帮主也不敢惹。个人能力突出，在这次团队PK上贡献巨大，几乎一个人完成了从数据库、后台搭建、前端分页的设计，为帮主所忌惮之人。
+              <canvas id="c3"></canvas>
+          </p>
+          <p id="p4">
+              本名杨宏斌，帮内传功长老，掌管帮内藏经阁，功夫与“天龙八部”扫地僧不相上下，画的一手好图，团队内UI绝对核心人物。上通canvas，下知vadio,css3动画手到擒来，江湖人称“神笔杨良”。
+              <canvas id="c4"></canvas>
+          </p>
+          <p id="p5">
+              本名张宏伟，帮内执法长老。俗话说的好“我抽的不是烟，是寂寞”，只要一到下课，他就一把一把的抽，可能由于太寂寞，他把功夫都下在了动效上，各种动效对他来说了如指掌，团队内主攻注册及详情页，其内动效如排山倒海一波接着一波。
+              <canvas id="c5"></canvas>
+          </p>
+      </div>
+	  <a href="../222/login/index.html" id="login">点击登录页</a>
+  </div>
+  <script src="jquery-1.11.3.js"></script>
+  <script>
+      let kabao=document.getElementById('kabao'),box=document.getElementById("box"),bgImg=document.getElementById("bgImg"),
+      img1=document.getElementById('img1'),
+              list1=document.getElementById('list-1'),
+              list2=document.getElementById('list-2'),
+              list3=document.getElementById('list-3'),
+              list4=document.getElementById('list-4'),
+              list5=document.getElementById('list-5'),
+              c1=document.getElementById("c1"),
+              c1xt=c1.getContext("2d"),
+              c2=document.getElementById("c2"),
+              c2xt=c2.getContext("2d"),
+              c3=document.getElementById("c3"),
+              c3xt=c3.getContext("2d"),
+              c4=document.getElementById("c4"),
+              c4xt=c4.getContext("2d"),
+              c5=document.getElementById("c5"),
+              c5xt=c5.getContext("2d");
+      let startX=0;
+      let startY=0;
+      let bool=true;
+
+      function canvas(name){
+    //      画1
+          name.beginPath();
+          name.moveTo(150,10);
+          name.lineTo(280,67);
+          name.lineTo(230,140);
+          name.lineTo(70,140);
+          name.lineTo(20,67);
+          name.lineTo(150,10);
+          name.fillStyle="#2D2D2B";
+          name.lineWidth=1;
+          name.stroke();
+          name.closePath();
+    //线条
+          name.beginPath();
+          name.moveTo(150,80);
+          name.lineTo(150,10);
+          name.moveTo(150,80);
+          name.lineTo(280,67);
+          name.moveTo(150,80);
+          name.lineTo(230,140);
+          name.moveTo(150,80);
+          name.lineTo(70,140);
+          name.moveTo(150,80);
+          name.lineTo(20,67);
+          name.strokeStyle="#2D2D2B";
+          name.lineWidth=1;
+          name.stroke();
+          name.closePath();
+    //字体
+          name.beginPath();
+          name.font='bold 12px Arial';
+          name.fillStyle="#2D2D2B";
+          name.fillText('智商',120,10);
+          name.fillText('体力',265,55);
+          name.fillText('手速',240,145);
+          name.fillText('帅气',40,145);
+          name.fillText('威信',5,55);
+      }
+//      属性1
+      c1xt.beginPath();
+      c1xt.moveTo(150,70);
+      c1xt.lineTo(260,69);
+      c1xt.lineTo(230,140);
+      c1xt.lineTo(65,145);
+      c1xt.lineTo(20,67);
+      c1xt.lineTo(150,70);
+      c1xt.fillStyle="rgba(28,28,28,0.6)";
+      c1xt.fill();
+      c1xt.lineWidth=1;
+      c1xt.stroke();
+      c1xt.closePath();
+      //      属性2
+      c2xt.beginPath();
+      c2xt.moveTo(150,30);
+      c2xt.lineTo(240,71);
+      c2xt.lineTo(226,136);
+      c2xt.lineTo(97,120);
+      c2xt.lineTo(40,69);
+      c2xt.lineTo(150,30);
+      c2xt.fillStyle="rgba(28,28,28,0.6)";
+      c2xt.fill();
+      c2xt.lineWidth=1;
+      c2xt.stroke();
+      c2xt.closePath();
+      //      属性3
+      c3xt.beginPath();
+      c3xt.moveTo(150,10);
+      c3xt.lineTo(260,69);
+      c3xt.lineTo(226,136);
+      c3xt.lineTo(107,110);
+      c3xt.lineTo(30,68);
+      c3xt.lineTo(150,10);
+      c3xt.fillStyle="rgba(28,28,28,0.6)";
+      c3xt.fill();
+      c3xt.lineWidth=1;
+      c3xt.stroke();
+      c3xt.closePath();
+      //      属性4
+      c4xt.beginPath();
+      c4xt.moveTo(150,20);
+      c4xt.lineTo(280,67);
+      c4xt.lineTo(205,120);
+      c4xt.lineTo(107,110);
+      c4xt.lineTo(54,70);
+      c4xt.lineTo(150,20);
+      c4xt.fillStyle="rgba(28,28,28,0.6)";
+      c4xt.fill();
+      c4xt.lineWidth=1;
+      c4xt.stroke();
+      c4xt.closePath();
+      //      属性5
+      c5xt.beginPath();
+      c5xt.moveTo(150,10);
+      c5xt.lineTo(280,67);
+      c5xt.lineTo(170,96);
+      c5xt.lineTo(70,140);
+      c5xt.lineTo(90,75);
+      c5xt.lineTo(150,10);
+      c5xt.fillStyle="rgba(28,28,28,0.6)";
+      c5xt.fill();
+      c5xt.lineWidth=1;
+      c5xt.stroke();
+      c5xt.closePath();
+
+
+      for(var i=0;i<10;i++){
+          for (var j=0;j<10;j++){
+
+              var div=document.createElement("div");
+              var width=kabao.clientWidth/10+'px';
+              var heigth=kabao.clientHeight/10+'px';
+              var left=(kabao.clientWidth/10)*j+'px';
+              var itop=(kabao.clientHeight/10)*i+'px';
+              div.style.background="url(img/kabao.gif)";
+              div.style.width=width;
+              div.style.height=heigth;
+              div.style.left=left;
+              div.style.top=itop;
+              div.style.backgroundPositionX = (kabao.clientWidth/ 10)* -j + 'px';
+              div.style.backgroundPositionY= (kabao.clientHeight/10)* -i + 'px';
+              kabao.appendChild(div);
+              console.log(width+":"+heigth);
+          }
+      }
+      kabao.ondragstart=function(e){
+          startX= e.offsetX;  //拖动事件相对于飞机左上角偏移量
+          startY= e.offsetY;
+      };
+      kabao.ondrag=function(e){
+          let ex= e.clientX;
+          let ey= e.clientY;
+          if(ex===0&&ey===0){
+              return
+          }
+          kabao.style.top=(ey-startX+20)+'px';
+          kabao.style.left=(ex-startY+40)+'px';
+      };
+      kabao.ondragend=function(){};
+      //进入
+      box.ondragenter=function(){
+        console.log('进入')
+          kabao.style.boxShadow= '0 0 2px 2px #5C3CFF,0 0 2px 2px #5C3CFF inset';
+      };
+      //悬停
+      box.ondragover=function(e){
+          e.preventDefault();
+          console.log('悬停')
+      };
+      //离开
+      box.ondragleave=function(){
+          console.log('离开')
+          kabao.style.boxShadow= '0 0 0 0 #5C3CFF,0 0 0 0 #5C3CFF inset';
+      };
+      //释放
+      box.ondrop=function(){
+          console.log('释放');
+          kabao.style.transform='translateZ(400px)';
+          bgImg.style.filter='blur(8px)';
+          var n=0;
+          var timer=setInterval(function(){
+                    n+=0.2;
+              kabao.style.boxShadow= '0 0 '+n+'px '+n+'px #5C3CFF,0 0 '+n+'px '+n+'px #5C3CFF inset';
+              if(n>10){
+                  clearInterval(timer);
+                  img1.style.display='none';
+
+                  var alldiv=kabao.children;
+                  for(var i=0;i<alldiv.length;i++){
+                      alldiv[i].style.transform =
+                              'rotateX('+ (Math.random()*500-250)+'deg) ' +
+                              'rotateY('+(Math.random()*500-250)+'deg) ' +
+                              'translateX('+(Math.random()*500-250)+'px) ' +
+                              'translateY('+(Math.random()*500-250)+'px) t' +
+                              'ranslateZ('+(Math.random()*1000-500)+'px)'
+                      alldiv[i].style.opacity = 0;
+                  }
+                  setTimeout(function(){
+                      kabao.style.boxShadow= '0 0 #5C3CFF,0 0 #5C3CFF inset';
+                      setTimeout(function(){
+                          kabao.style.display='none';
+                      },1000);
+                  },10);
+                  list1.style.opacity='1';
+                  list1.style.transform='rotateY(180deg) translateZ(0px) translateX(600px) translateY(-120px)';
+                  list1.style.zIndex='2';
+                  list2.style.opacity='1';
+                  list2.style.transform='rotateY(180deg) translateZ(0px) translateX(377px) translateY(-220px)';
+                  list2.style.zIndex='2';
+                  list3.style.opacity='1';
+                  list3.style.transform='rotateY(180deg) translateZ(0px) translateX(150px) translateY(-120px)';
+                  list3.style.zIndex='2';
+                  list4.style.opacity='1';
+                  list4.style.transform='rotateY(180deg) translateZ(0px) translateX(214px) translateY(92px)';
+                  list4.style.zIndex='2';
+                  list5.style.opacity='1';
+                  list5.style.transform='rotateY(180deg) translateZ(0px) translateX(423px) translateY(92px)';
+                  list5.style.zIndex='2';
+
+                  $("#list-1").click(function(){
+                      canvas(c1xt);
+                      if(bool){
+                          $(this).css({
+                              transform:'rotateY(0) translateZ(500px) translateX(-400px)',
+                              zIndex:'10'
+                          });
+                          $(this).siblings("div").css({opacity:'0'});
+                          setTimeout(function(){
+                              $("#list-1").css({
+                                  transform:'translateZ(200px) translateX(-737px) translateY(-139px)'
+                              })
+                          },1000);
+                          setTimeout(function(){
+                              $("#jianjie").css({opacity:'1',zIndex:'1'});
+                              $("#p1").css({display:'block'});
+                          },1000);
+                          bool=false;
+                      }else{
+                          $("#jianjie").css({opacity:'0',zIndex:'-10'});
+                          $("#p1").css({display:'none'});
+                          $("#list-1").css({
+                              transform:'rotateY(180deg) translateZ(0px) translateX(600px) translateY(-120px)',
+                              zIndex:'2'
+                          }).siblings("div").css({opacity:'1'});
+                          bool=true;
+                      }
+                  });
+//              卡2
+                  $("#list-2").click(function(){
+                      canvas(c2xt);
+                      if(bool){
+                          $(this).css({
+                              transform:'rotateY(0) translateZ(500px) translateX(-400px)',
+                              zIndex:'10'
+                          });
+                          $(this).siblings("div").css({opacity:'0'});
+                          setTimeout(function(){
+                              $("#list-2").css({
+                                  transform:'translateZ(200px) translateX(-737px) translateY(-139px)'
+                              })
+                          },1000);
+                          setTimeout(function(){
+                              $("#jianjie").css({opacity:'1',zIndex:'1'});
+                              $("#p2").css({display:'block'});
+                          },1000);
+                          bool=false;
+                      }else{
+                          $("#jianjie").css({opacity:'0',zIndex:'-10'});
+                          $("#p2").css({display:'none'});
+                          $("#list-2").css({
+                              transform:'rotateY(180deg) translateZ(0px) translateX(377px) translateY(-220px)',
+                              zIndex:'2'
+                          }).siblings("div").css({opacity:'1'});
+                          bool=true;
+                      }
+                  });
+//              卡3
+                  $("#list-3").click(function(){
+                      canvas(c3xt);
+                      if(bool){
+                          $(this).css({
+                              transform:'rotateY(0) translateZ(500px) translateX(-350px)',
+                              zIndex:'10'
+                          });
+                          $(this).siblings("div").css({opacity:'0'});
+                          setTimeout(function(){
+                              $("#list-3").css({
+                                  transform:'translateZ(200px) translateX(-700px) translateY(-139px)'
+                              })
+                          },1000);
+                          setTimeout(function(){
+                              $("#jianjie").css({opacity:'1',zIndex:'1'});
+                              $("#p3").css({display:'block'});
+                          },1000);
+                          bool=false;
+                      }else{
+                          $("#jianjie").css({opacity:'0',zIndex:'-10'});
+                          $("#p3").css({display:'none'});
+                          $("#list-3").css({
+                              transform:'rotateY(180deg) translateZ(0px) translateX(150px) translateY(-120px)',
+                              zIndex:'2'
+                          }).siblings("div").css({opacity:'1'});
+                          bool=true;
+                      }
+                  })
+
+//              卡4
+                  $("#list-4").click(function(){
+                      canvas(c4xt);
+                      if(bool){
+                          $(this).css({
+                              transform:'rotateY(0) translateZ(500px) translateX(-350px)',
+                              zIndex:'10'
+                          });
+                          $(this).siblings("div").css({opacity:'0'});
+                          setTimeout(function(){
+                              $("#list-4").css({
+                                  transform:'translateZ(200px) translateX(-700px) translateY(-139px)'
+                              })
+                          },1000);
+                          setTimeout(function(){
+                              $("#jianjie").css({opacity:'1',zIndex:'1'});
+                              $("#p4").css({display:'block'});
+                          },1000);
+                          bool=false;
+                      }else{
+                          $("#jianjie").css({opacity:'0',zIndex:'-10'});
+                          $("#p4").css({display:'none'});
+                          $("#list-4").css({
+                              transform:'rotateY(180deg) translateZ(0px) translateX(214px) translateY(92px)',
+                              zIndex:'2'
+                          }).siblings("div").css({opacity:'1'});
+                          bool=true;
+                      }
+                  })
+    //              卡5
+                  $("#list-5").click(function(){
+                      canvas(c5xt);
+                      if(bool){
+                          $(this).css({
+                              transform:'rotateY(0) translateZ(500px) translateX(-350px)',
+                              zIndex:'10'
+                          });
+                          $(this).siblings("div").css({opacity:'0'});
+                          setTimeout(function(){
+                              $("#list-5").css({
+                                  transform:'translateZ(200px) translateX(-670px) translateY(-139px)'
+                              })
+                          },1000);
+                          setTimeout(function(){
+                              $("#jianjie").css({opacity:'1',zIndex:'1'});
+                              $("#p5").css({display:'block'});
+                          },1000);
+                          bool=false;
+                      }else{
+                          $("#jianjie").css({opacity:'0',zIndex:'-10'});
+                          $("#p5").css({display:'none'});
+                          $("#list-5").css({
+                              transform:'rotateY(180deg) translateZ(0px) translateX(423px) translateY(92px)',
+                              zIndex:'2'
+                          }).siblings("div").css({opacity:'1'});
+                          bool=true;
+                      }
+                  })
+              }
+          },50)
+      };
+  </script>
+</body>
+</html>

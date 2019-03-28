@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            position: relative;
+            height:333px;
+            width:500px;
+            border:1px solid red;
+            margin:100px auto;
+            perspective(800px);
+        }
+        #box>div{
+            position:absolute;
+            top:0;
+            left:0;
+            transform-style:preserve-3d;
+            transition: all 1s linear;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+</div>
+<script>
+
+    var index=0;
+    var box=document.getElementById("box");
+
+
+        var list=["kebi/1.jpg","kebi/2.jpg","kebi/3.jpg","kebi/4.jpg"];
+        for(var i=0;i<10;i++){
+            for (var j=0;j<10;j++){
+
+                var div=document.createElement("div");
+                var width=box.clientWidth/10+'px';
+                var heigth=box.clientHeight/10+'px';
+                var left=(box.clientWidth/10)*j+'px';
+                var itop=(box.clientHeight/10)*i+'px';
+                console.log(itop);
+                div.style.background="url("+list[index]+")";
+                div.style.width=width;
+                div.style.height=heigth;
+                div.style.left=left;
+                div.style.top=itop;
+                div.style.backgroundPositionX = (box.clientWidth/ 10)* -j + 'px';
+                div.style.backgroundPositionY= (box.clientHeight/10)* -i + 'px';
+                box.appendChild(div);
+            }
+        }
+
+
+
+
+    box.onclick=function () {
+        var alldiv=this.children;
+        for(var i=0;i<alldiv.length;i++){
+            alldiv[i].style.transform =
+                'rotateX('+ (Math.random()*500-250)+'deg) ' +
+                'rotateY('+(Math.random()*500-250)+'deg) ' +
+                'translateX('+(Math.random()*500-250)+'px) ' +
+                'translateY('+(Math.random()*500-250)+'px) t' +
+                'ranslateZ('+(Math.random()*1000-500)+'px)'
+            alldiv[i].style.opacity = 0;
+        }
+
+    }
+</script>
+</body>
+</html>
